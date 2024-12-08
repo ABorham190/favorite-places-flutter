@@ -15,11 +15,15 @@ class PlaceDetailsScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text(place.name),
       ),
-      body: Center(
-        child: Text(
-          place.name,
-          style: const TextStyle(color: Colors.white),
-        ),
+      body: Stack(
+        children: [
+          Image(
+            image: FileImage(place.image),
+            fit: BoxFit.cover,
+            height: double.infinity,
+            width: double.infinity,
+          ),
+        ],
       ),
     );
   }

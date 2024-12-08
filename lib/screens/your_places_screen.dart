@@ -12,7 +12,7 @@ class YourPlacesScreen extends ConsumerWidget {
   void _addNewPlace(BuildContext context) {
     Navigator.of(context).push(
       MaterialPageRoute(builder: (context) {
-        return AddNewPlaceScreen();
+        return const AddNewPlaceScreen();
       }),
     );
   }
@@ -54,7 +54,12 @@ class YourPlacesScreen extends ConsumerWidget {
           ),
         ],
       ),
-      body: content,
+      body: Padding(
+        padding: const EdgeInsets.symmetric(
+          vertical: 8,
+        ),
+        child: content,
+      ),
     );
   }
 }

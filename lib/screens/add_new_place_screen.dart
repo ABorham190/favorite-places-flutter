@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:favorite_places/widgets/input_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:favorite_places/providers/your_places_Provider.dart';
@@ -9,10 +12,15 @@ class AddNewPlaceScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    File? selectedImage;
+    String? placeTitle;
     final formKey = GlobalKey<FormState>();
     void save() {
       if (formKey.currentState!.validate()) {
         formKey.currentState!.save();
+        ref
+            .read(yourPlacesProvider.notifier)
+            .addPlace(placeTitle!, selectedImage!);
         Navigator.of(context).pop();
       }
     }
@@ -21,14 +29,14 @@ class AddNewPlaceScreen extends ConsumerWidget {
       appBar: AppBar(
         title: const Text('Add New Place'),
       ),
-      body: Form(
-        key: formKey,
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8),
-              child: TextFormField(
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.symmetric(horizontal: 8),
+        child: Form(
+          key: formKey,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              TextFormField(
                 maxLength: 50,
                 decoration: const InputDecoration(
                   label: Text(
@@ -47,27 +55,27 @@ class AddNewPlaceScreen extends ConsumerWidget {
                   return null;
                 },
                 onSaved: (value) {
-                  ref.read(yourPlacesProvider.notifier).addPlace(value!);
+                  placeTitle = value!;
                 },
               ),
-            ),
-            const SizedBox(
-              height: 8,
-            ),
-            ElevatedButton(
-              onPressed: save,
-              child: const Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Icon(Icons.add),
-                  SizedBox(
-                    width: 10,
-                  ),
-                  Text('Add Place'),
-                ],
+              const SizedBox(
+                height: 8,
               ),
-            ),
-          ],
+              InputImage(
+                onPickImage: (image) {
+                  selectedImage = image;
+                },
+              ),
+              const SizedBox(
+                height: 8,
+              ),
+              ElevatedButton.icon(
+                onPressed: save,
+                label: const Text('Add Place'),
+                icon: const Icon(Icons.add),
+              ),
+            ],
+          ),
         ),
       ),
     );

@@ -1,11 +1,19 @@
+import 'dart:io';
+
 import 'package:favorite_places/models/place.dart';
 import 'package:riverpod/riverpod.dart';
+import 'package:uuid/uuid.dart';
+
+var uuid = const Uuid();
 
 class YourPlacesNotifier extends StateNotifier<List<Place>> {
   YourPlacesNotifier() : super([]);
-  void addPlace(String title) {
-    final place = Place(id: (state.length + 1).toString(), name: title);
-    state = [...state, place];
+  void addPlace(String title, File image) {
+    final place = Place(
+      name: title,
+      image: image,
+    );
+    state = [place, ...state];
   }
 }
 

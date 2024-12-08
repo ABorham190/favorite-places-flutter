@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:favorite_places/providers/your_places_Provider.dart';
 
 class AddNewPlaceScreen extends ConsumerWidget {
-  AddNewPlaceScreen({
+  const AddNewPlaceScreen({
     super.key,
   });
 
@@ -17,7 +17,6 @@ class AddNewPlaceScreen extends ConsumerWidget {
       }
     }
 
-    var placeTitle = '';
     return Scaffold(
       appBar: AppBar(
         title: const Text('Add New Place'),
@@ -32,9 +31,11 @@ class AddNewPlaceScreen extends ConsumerWidget {
               child: TextFormField(
                 maxLength: 50,
                 decoration: const InputDecoration(
-                  label: Text('title'),
+                  label: Text(
+                    'title',
+                  ),
                 ),
-                style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                       color: Theme.of(context).colorScheme.onSurface,
                     ),
                 validator: (value) {

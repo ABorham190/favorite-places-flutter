@@ -35,6 +35,7 @@ class PlaceListItem extends StatelessWidget {
             ),
           );
         },
+        subtitle: Text(place.placeLocation.address),
       ),
     );
   }

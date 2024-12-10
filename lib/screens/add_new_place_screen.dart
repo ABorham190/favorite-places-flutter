@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:favorite_places/models/place.dart';
 import 'package:favorite_places/widgets/input_image.dart';
 import 'package:favorite_places/widgets/input_location.dart';
 import 'package:flutter/material.dart';
@@ -15,13 +16,16 @@ class AddNewPlaceScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     File? selectedImage;
     String? placeTitle;
+    PlaceLocation? placeLocation;
     final formKey = GlobalKey<FormState>();
     void save() {
       if (formKey.currentState!.validate()) {
         formKey.currentState!.save();
-        ref
-            .read(yourPlacesProvider.notifier)
-            .addPlace(placeTitle!, selectedImage!);
+        ref.read(yourPlacesProvider.notifier).addPlace(
+              placeTitle!,
+              selectedImage!,
+              placeLocation!,
+            );
         Navigator.of(context).pop();
       }
     }
@@ -70,7 +74,11 @@ class AddNewPlaceScreen extends ConsumerWidget {
               const SizedBox(
                 height: 8,
               ),
-              InputLocation(),
+              InputLocation(
+                onGetLocation: (location) {
+                  placeLocation = location;
+                },
+              ),
               const SizedBox(
                 height: 8,
               ),

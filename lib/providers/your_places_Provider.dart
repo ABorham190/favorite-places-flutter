@@ -8,10 +8,11 @@ var uuid = const Uuid();
 
 class YourPlacesNotifier extends StateNotifier<List<Place>> {
   YourPlacesNotifier() : super([]);
-  void addPlace(String title, File image) {
+  void addPlace(String title, File image, PlaceLocation placeLocation) {
     final place = Place(
       name: title,
       image: image,
+      placeLocation: placeLocation,
     );
     state = [place, ...state];
   }

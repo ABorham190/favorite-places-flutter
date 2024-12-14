@@ -4,11 +4,18 @@ import 'package:flutter/material.dart';
 import 'package:favorite_places/providers/your_places_Provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class YourPlacesScreen extends ConsumerWidget {
+class YourPlacesScreen extends ConsumerStatefulWidget {
   const YourPlacesScreen({
     super.key,
   });
 
+  @override
+  ConsumerState<YourPlacesScreen> createState() {
+    return _YourPlacesScreenState();
+  }
+}
+
+class _YourPlacesScreenState extends ConsumerState<YourPlacesScreen> {
   void _addNewPlace(BuildContext context) {
     Navigator.of(context).push(
       MaterialPageRoute(builder: (context) {
@@ -18,11 +25,18 @@ class YourPlacesScreen extends ConsumerWidget {
   }
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  void initState() {
+    super.initState();
+
+    ref.read(yourPlacesProvider.notifier).loadPlaces();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final placesList = ref.watch(yourPlacesProvider);
     Widget content = Center(
       child: Text(
-        'Oh...Uh No places added right now',
+        'No places added right now',
         style: Theme.of(context).textTheme.titleLarge!.copyWith(
               color: Theme.of(context).colorScheme.onSurface,
             ),

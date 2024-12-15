@@ -3,7 +3,6 @@ import 'package:path_provider/path_provider.dart' as syspath;
 import 'package:path/path.dart' as path;
 import 'package:favorite_places/models/place.dart';
 import 'package:riverpod/riverpod.dart';
-import 'package:uuid/uuid.dart';
 import 'package:sqflite/sqflite.dart' as sql;
 import 'package:sqflite/sqlite_api.dart';
 
@@ -22,7 +21,7 @@ Future<Database> _getDatabase() async {
 
 class YourPlacesNotifier extends StateNotifier<List<Place>> {
   YourPlacesNotifier() : super([]);
-  void loadPlaces() async {
+  Future<void> loadPlaces() async {
     final db = await _getDatabase();
 
     final data = await db.query('user_places');

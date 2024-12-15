@@ -24,11 +24,12 @@ class _YourPlacesScreenState extends ConsumerState<YourPlacesScreen> {
     );
   }
 
+  late Future<void> _futurePlaces;
   @override
   void initState() {
     super.initState();
 
-    ref.read(yourPlacesProvider.notifier).loadPlaces();
+    _futurePlaces = ref.read(yourPlacesProvider.notifier).loadPlaces();
   }
 
   @override
@@ -68,11 +69,17 @@ class _YourPlacesScreenState extends ConsumerState<YourPlacesScreen> {
           ),
         ],
       ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(
-          vertical: 8,
-        ),
-        child: content,
+      body: FutureBuilder(
+        future: _futurePlaces,
+        builder: (context, snapshot) =>
+            snapshot.connectionState == ConnectionState.waiting
+                ? const CircularProgressIndicator()
+                : Padding(
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 8,
+                    ),
+                    child: content,
+                  ),
       ),
     );
   }

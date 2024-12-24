@@ -12,8 +12,8 @@ class PlaceDetailsScreen extends StatelessWidget {
   String get _locationImage {
     final lat = place.placeLocation.latitude;
     final lng = place.placeLocation.longitude;
-
-    return 'https://maps.googleapis.com/maps/api/staticmap?center=$lat,$lng&zoom=16&size=600x300&maptype=roadmap&markers=color:red%7Clabel:S%7C$lat,$lng&key=AIzaSyD_137n_Pb0bUn1BJ0S0hYydicTAjfiXkk';
+    //this data involves secret key
+    return 'Secret data';
   }
 
   @override

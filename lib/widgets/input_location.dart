@@ -29,13 +29,14 @@ class _InputLocation extends State<InputLocation> {
     }
     final lat = _pickedLocation!.latitude;
     final lng = _pickedLocation!.longitude;
-
-    return 'https://maps.googleapis.com/maps/api/staticmap?center=$lat,$lng&zoom=16&size=600x300&maptype=roadmap&markers=color:red%7Clabel:S%7C$lat,$lng&key=AIzaSyD_137n_Pb0bUn1BJ0S0hYydicTAjfiXkk';
+    //this data contain secret key (google)
+    return 'secret data';
   }
 
   void savePlace(double latitude, double longitude) async {
-    final url = Uri.parse(
-        'https://maps.googleapis.com/maps/api/geocode/json?latlng=$latitude,$longitude&key=AIzaSyD_137n_Pb0bUn1BJ0S0hYydicTAjfiXkk');
+    //this data contain secret key (google)
+
+    final url = Uri.parse('secret data');
 
     final response = await http.get(url);
 
